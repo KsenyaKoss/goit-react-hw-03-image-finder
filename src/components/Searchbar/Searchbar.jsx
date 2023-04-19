@@ -1,54 +1,52 @@
 import styled from 'styled-components';
 import { Component } from 'react';
-import {FaSearch} from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 export class Searchbar extends Component {
+  state = {
+    inputStr: '',
+  };
 
-    state = {
-        inputStr: '',
-    }
+  handleSubmit = ev => {
+    ev.preventDefault();
+    this.props.onSubmit(this.state.inputStr);
+    this.setState(() => ({ inputStr: '' }));
+  };
 
-    handleSubmit = (ev) => {
-        ev.preventDefault()
-        this.props.onSubmit(this.state.inputStr)
-        this.setState(()=> ({inputStr: ''}))
+  handleOnChange = ev => {
+    this.setState({ inputStr: ev.target.value });
+  };
 
-    }
+  render() {
+    return (
+      <Styledbar>
+        <SearchForm>
+          <Searchbutton type="submit" onClick={this.handleSubmit}>
+            <span>
+              <FaSearch />
+              Search
+            </span>
+          </Searchbutton>
 
-    handleOnChange =(ev)=>{
-        this.setState({inputStr: ev.target.value})
-    }
+          <Searchinput
+            className="input"
+            type="text"
+            autocomplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            value={this.state.inputStr}
+            onChange={this.handleOnChange}
+          />
+        </SearchForm>
+      </Styledbar>
+    );
+  }
+}
 
-    render(){
-        return (
-            <Styledbar>
-              <SearchForm  >
-                <Searchbutton type="submit" onClick={this.handleSubmit}>
-                  <span ><FaSearch/>Search</span>
-                </Searchbutton>
-        
-                <Searchinput
-                  className="input"
-                  type="text"
-                  autocomplete="off"
-                  autoFocus
-                  placeholder="Search images and photos"
-                  value={this.state.inputStr}
-                  onChange={this.handleOnChange}
-                  
-                />
-              </SearchForm>
-            </Styledbar>
-          );
-    }
- 
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func,
 };
-
-
-
-
-
-
 
 const Styledbar = styled.div`
   top: 0;

@@ -18,7 +18,10 @@ export class App extends Component {
   };
 
   componentDidUpdate = (_, prevState) => {
-    if ( prevState.query !== this.state.query || prevState.page !== this.state.page)
+    if (
+      prevState.query !== this.state.query ||
+      prevState.page !== this.state.page
+    )
       this.getImages();
   };
 
@@ -36,40 +39,32 @@ export class App extends Component {
   };
 
   onLoadMore = () => {
-    console.log(this.state.page);
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   handleSubmit = query => {
-    this.setState({images:[], query});
+    this.setState({ images: [], query });
   };
 
-  openModal = (largeImage) => {   
+  openModal = largeImage => {
     this.setState({ modalShown: largeImage });
   };
   closeModal = () => {
     this.setState({ modalShown: null });
   };
+
   render() {
-    const {
-      images,
-      isLoading,
-      isListShown,
-      openModal,
-      modalShown,
-      closeModal,
-      onLoadMore,
-    } = this.state;
+    const { images, isLoading, isListShown, modalShown } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
         {isLoading && <Loader />}
         {images.length !== 0 && (
-          <ImageGallery pictures={images} openModal={openModal} />
+          <ImageGallery pictures={images} openModal={this.openModal} />
         )}
-        {isListShown && <Button onLoad={onLoadMore} />}
+        {isListShown && <Button onLoad={this.onLoadMore} />}
         {modalShown !== null && (
-          <Modal poster={modalShown} onClose={closeModal} />
+          <Modal poster={modalShown} onClose={this.closeModal} />
         )}
       </>
     );

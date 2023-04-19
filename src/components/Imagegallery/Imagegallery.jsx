@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { ImageGalleryItem } from './ImagegalleryItem';
 
@@ -9,19 +10,21 @@ export const ImageGallery = ({ pictures, openModal }) => {
         <ImageGalleryItem
           key={picture.id}
           card={picture}
-          onClick={() => {
-            openModal(picture.largeImageURL);
-          }}
+          openModal={openModal}
         />
       ))}
     </StyledList>
   );
 };
 
-
-
-
-
+ImageGallery.propTypes = {
+  pictures: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+    })
+  ),
+  openModal: PropTypes.func,
+};
 
 const StyledList = styled.ul`
   display: grid;

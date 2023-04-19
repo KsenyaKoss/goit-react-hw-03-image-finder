@@ -1,11 +1,24 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-export const ImageGalleryItem = ({card} )=> {
+export const ImageGalleryItem = ({ card, openModal }) => {
   return (
-    <StyledItem>
+    <StyledItem
+      onClick={() => {
+        openModal(card.largeImageURL);
+      }}
+    >
       <StyledImg src={card.webformatURL} alt="image" />
     </StyledItem>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  card: PropTypes.shape({
+    largeImageURL: PropTypes.string,
+    webformatURL: PropTypes.string,
+  }),
+  openModal: PropTypes.func,
 };
 
 const StyledItem = styled.li`

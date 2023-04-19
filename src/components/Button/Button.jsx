@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-export const Button = ({onLoad}) => {
-  console.log(onLoad);
+export const Button = ({ onLoad }) => {
   return <LoadMoreButton onClick={onLoad}>Load more</LoadMoreButton>;
 };
 
-
+Button.propTypes = {
+  onLoad: PropTypes.func,
+};
 
 const LoadMoreButton = styled.button`
   padding: 8px 16px;

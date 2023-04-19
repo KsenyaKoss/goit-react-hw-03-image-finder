@@ -1,37 +1,33 @@
 import styled from 'styled-components';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export const Modal = ({poster, onClose}) => {
-  console.log(poster);
-  return (
-    <StyledOverlay>
-      <StyledModal >
-        <img src={poster.largeImageURL} alt="image"/>
-        <CloseButton onClick={onClose}>×</CloseButton>
-      </StyledModal>
-    </StyledOverlay>
-  );
+export class Modal extends Component {
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = ev => {
+    if (ev.key === 'Escape') {
+      this.props.onClose();
+    }
+  };
+
+  render() {
+    return (
+      <StyledOverlay onClick={this.props.onClose}>
+        <StyledModal>
+          <img src={this.props.poster} alt="image" />
+        </StyledModal>
+      </StyledOverlay>
+    );
+  }
+}
+
+Modal.propTypes = {
+  onClose: PropTypes.func,
+  poster: PropTypes.string,
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const StyledOverlay = styled.div`
   position: fixed;
@@ -52,10 +48,11 @@ const StyledModal = styled.div`
 `;
 
 const CloseButton = styled.button`
-position: absolute;
-top: 5px;
-right: 5px;
-background-color: transparent;
-border: none;
-font-size: 20px;
-cursor: pointer;`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+`;
