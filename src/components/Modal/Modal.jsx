@@ -21,7 +21,7 @@ export class Modal extends Component {
     return (
       <StyledOverlay onClick={this.props.onClose}>
         <StyledModal>
-          <img src={this.props.poster} alt="image" />
+          <img src={this.props.poster} alt="pic" />
         </StyledModal>
       </StyledOverlay>
     );
