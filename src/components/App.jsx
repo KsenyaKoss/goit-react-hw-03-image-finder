@@ -32,6 +32,7 @@ export class App extends Component {
       .then(results => {
         this.setState(prevState => ({
           images: [...prevState.images, ...results.data.hits],
+          totalHits: results.data.totalHits,
         }));
       })
       .catch(error => this.setState({ error: error.message }))
@@ -43,18 +44,23 @@ export class App extends Component {
   };
 
   handleSubmit = query => {
-    this.setState({ images: [], query });
+    this.setState({ images: [], query: query, page: 1 });
   };
 
   openModal = largeImage => {
     this.setState({ modalShown: largeImage });
   };
-  closeModal = () => {
-    this.setState({ modalShown: null });
+
+  closeModal = ev => {
+    console.log(ev.target);
+    if (ev.target === ev.currentTarget) {
+      this.setState({ modalShown: null });
+    }
   };
 
   render() {
-    const { images, isLoading, isListShown, modalShown } = this.state;
+    const { images, isLoading, isListShown, modalShown, totalHits } =
+      this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
@@ -62,7 +68,9 @@ export class App extends Component {
         {images.length !== 0 && (
           <ImageGallery pictures={images} openModal={this.openModal} />
         )}
-        {isListShown && <Button onLoad={this.onLoadMore} />}
+        {isListShown && images.length <= totalHits && !isLoading && (
+          <Button onLoad={this.onLoadMore} />
+        )}
         {modalShown !== null && (
           <Modal poster={modalShown} onClose={this.closeModal} />
         )}
