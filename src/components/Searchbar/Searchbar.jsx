@@ -16,7 +16,6 @@ export class Searchbar extends Component {
   handleSubmit = ev => {
     ev.preventDefault();
     this.props.onSubmit(this.state.inputStr);
-    this.setState(() => ({ inputStr: '' }));
   };
 
   handleOnChange = ev => {
@@ -40,7 +39,6 @@ export class Searchbar extends Component {
             autocomplete="off"
             autoFocus
             placeholder="Search images and photos"
-            value={this.state.inputStr}
             onChange={this.handleOnChange}
           />
         </SearchForm>

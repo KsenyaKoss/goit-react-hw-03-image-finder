@@ -9,12 +9,10 @@ import { Loader } from './Loader/Loader';
 export class App extends Component {
   state = {
     images: [],
-    page: 1,
     isLoading: false,
     isListShown: false,
     modalShown: null,
     error: '',
-    query: '',
   };
 
   componentDidUpdate = (_, prevState) => {
@@ -44,7 +42,7 @@ export class App extends Component {
   };
 
   handleSubmit = query => {
-    this.setState({ images: [], query: query, page: 1 });
+    this.setState({ images: [], query, page: 1 });
   };
 
   openModal = largeImage => {
