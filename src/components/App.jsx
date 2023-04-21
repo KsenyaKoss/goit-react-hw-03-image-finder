@@ -49,16 +49,14 @@ export class App extends Component {
     this.setState({ modalShown: largeImage });
   };
 
-  closeModal = ev => {
-    console.log(ev.target);
-    if (ev.target === ev.currentTarget) {
-      this.setState({ modalShown: null });
-    }
+  closeModal = () => {
+    this.setState({ modalShown: null });
   };
 
   render() {
     const { images, isLoading, isListShown, modalShown, totalHits } =
       this.state;
+
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />

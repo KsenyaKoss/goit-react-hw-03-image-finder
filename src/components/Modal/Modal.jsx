@@ -4,22 +4,22 @@ import PropTypes from 'prop-types';
 
 export class Modal extends Component {
   componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   handleKeyDown = ev => {
-    if (ev.key === 'Escape') {
+    if (ev.key === 'Escape' || ev.target === ev.currentTarget) {
       this.props.onClose();
     }
   };
 
   render() {
     return (
-      <StyledOverlay onClick={this.props.onClose}>
+      <StyledOverlay onClick={this.handleKeyDown}>
         <StyledModal>
           <img src={this.props.poster} alt="pic" />
         </StyledModal>
